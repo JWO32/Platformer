@@ -12,6 +12,9 @@ namespace Platformer.State
 	public abstract class BaseGameState
 	{
 		private readonly List<BaseGameObject> _gameObjects = new List<BaseGameObject>();
+		private const String FallBackTexture = "Empty";
+		private ContentManager contentManager;
+
 		public event EventHandler<Events> OnEventNotification;
 
 		public BaseGameState()
@@ -21,10 +24,18 @@ namespace Platformer.State
 		}
 
 		public abstract void LoadContent(ContentManager contentManager);
-		public abstract void UnloadContent(ContentManager contentManager);
+		public void UnloadContent()
+		{
+			this.contentManager.Unload();
+		}
 		public abstract void HandleInput();
 
 		public event EventHandler<BaseGameState> OnStateSwitched;
+
+		public void Initialise(ContentManager contentManager)
+		{
+			this.contentManager = contentManager;
+		}
 
 		protected void SwitchState(BaseGameState gameState)
 		{
@@ -53,6 +64,13 @@ namespace Platformer.State
 			{
 				gameObject.OnNotify(eventType);
 			}
+		}
+
+		protected Texture2D LoadTexture(String textureName)
+		{
+			var texture = contentManager.Load<Texture2D>(textureName);
+
+			return texture ?? contentManager.Load<Texture2D>(FallBackTexture);
 		}
 
 	}
