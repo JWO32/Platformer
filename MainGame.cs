@@ -19,8 +19,8 @@ namespace Platformer
         private Rectangle _renderScaleRectangle;
         private BaseGameState _currentGameState;
 
-        private const int DESIGNED_RESOLUTION_WIDTH = 640;
-        private const int DESIGNED_RESOLUTION_HEIGHT = 480;
+        private const int DESIGNED_RESOLUTION_WIDTH = 1280;
+        private const int DESIGNED_RESOLUTION_HEIGHT = 720;
         private const float DESIGN_RESOLUTION_ASPECT_RATIO = DESIGNED_RESOLUTION_WIDTH / (float)DESIGNED_RESOLUTION_HEIGHT;
 
         public MainGame()
@@ -81,7 +81,7 @@ namespace Platformer
 
         protected override void UnloadContent()
         {
-            _currentGameState?.UnloadContent(Content);
+            _currentGameState?.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -118,11 +118,12 @@ namespace Platformer
             {
                 _currentGameState.OnStateSwitched -= OnStateSwitched;
                 _currentGameState.OnEventNotification -= OnEventNotification;
-                _currentGameState.UnloadContent(Content);
+                _currentGameState.UnloadContent();
             }
 
-            _currentGameState?.UnloadContent(Content);
+            _currentGameState?.UnloadContent();
             _currentGameState = gameState;
+            _currentGameState.Initialise(Content);
             _currentGameState.LoadContent(Content);
             _currentGameState.OnStateSwitched += OnStateSwitched;
             _currentGameState.OnEventNotification += OnEventNotification;
