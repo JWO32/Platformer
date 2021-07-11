@@ -11,7 +11,7 @@ namespace Platformer.State
 {
 	public abstract class BaseGameState
 	{
-		private readonly List<BaseGameObject> _gameObjects = new List<BaseGameObject>();
+		private readonly List<BaseGameObject> gameObjects = new List<BaseGameObject>();
 		private const String FallBackTexture = "Empty";
 		private ContentManager contentManager;
 
@@ -24,6 +24,7 @@ namespace Platformer.State
 		}
 
 		public abstract void LoadContent(ContentManager contentManager);
+
 		public void UnloadContent()
 		{
 			this.contentManager.Unload();
@@ -44,12 +45,12 @@ namespace Platformer.State
 
 		protected void AddGameObject(BaseGameObject gameObject)
 		{
-			_gameObjects.Add(gameObject);
+			gameObjects.Add(gameObject);
 		}
 
 		public void Render(SpriteBatch spriteBatch)
 		{
-			foreach(var gameObject in _gameObjects.OrderBy(a=> a.zIndex))
+			foreach(var gameObject in gameObjects.OrderBy(a=> a.zIndex))
 			{
 				gameObject.Render(spriteBatch);
 			}
@@ -60,7 +61,7 @@ namespace Platformer.State
 		{
 			OnEventNotification?.Invoke(this, eventType);
 
-			foreach(var gameObject in _gameObjects)
+			foreach(var gameObject in gameObjects)
 			{
 				gameObject.OnNotify(eventType);
 			}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Platformer.Event;
+using Platformer.Objects;
 using System;
 
 
@@ -8,6 +9,10 @@ namespace Platformer.State
 {
 	public class GameplayState : BaseGameState
 	{
+
+		private const string PlayerFighter = "fighter";
+		private const string BackgroundTexture = "Barren";
+
 		public GameplayState()
 		{
 
@@ -16,22 +21,23 @@ namespace Platformer.State
 
 		public override void HandleInput()
 		{
-			if(GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
+			var state = Keyboard.GetState();
+
+			if(state.IsKeyDown(Keys.Escape))
 			{
 				NotifyEvent(Events.GAME_QUIT);
 			}
-
-
 		}
 
 		public override void LoadContent(ContentManager contentManager)
 		{
-			throw new NotImplementedException();
+			AddGameObject(new SplashImage(LoadTexture(BackgroundTexture)));
+			AddGameObject(new PlayerSprite(LoadTexture(PlayerFighter)));
 		}
 
-		public override void UnloadContent(ContentManager contentManager)
-		{
-			throw new NotImplementedException();
-		}
+		//public override void UnloadContent(ContentManager contentManager)
+		//{
+		//	throw new NotImplementedException();
+		//}
 	}
 }
