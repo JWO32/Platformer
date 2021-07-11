@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\BaseGameObject.cs" />
+    <Compile Include="Objects\PlayerSprite.cs" />
     <Compile Include="Objects\SplashImage.cs" />
     <Compile Include="State\BaseGameState.cs" />
     <Compile Include="Event\Event.cs" />

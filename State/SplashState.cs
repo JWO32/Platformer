@@ -16,23 +16,28 @@ namespace Platformer.State
 
 		public override void HandleInput()
 		{
-			
-		}
+			var state = Keyboard.GetState();
 
-		public override void LoadContent(ContentManager contentManager)
-		{
-			AddGameObject(new SplashImage(contentManager.Load<Texture2D>("Barren")));
-
-
-		}
-
-		public override void UnloadContent(ContentManager contentManager)
-		{
-			if(Keyboard.GetState().IsKeyDown(Keys.Enter))
+			if(state.IsKeyDown(Keys.Enter))
 			{
 				SwitchState(new GameplayState());
 			}
 		}
+
+		public override void LoadContent(ContentManager contentManager)
+		{
+			AddGameObject(new SplashImage(LoadTexture("splash")));
+
+
+		}
+
+		//public override void UnloadContent()
+		//{
+		//	if(Keyboard.GetState().IsKeyDown(Keys.Enter))
+		//	{
+		//		SwitchState(new GameplayState());
+		//	}
+		//}
 	}
 
 

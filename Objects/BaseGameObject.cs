@@ -9,7 +9,7 @@ namespace Platformer.Objects
     {
         protected Texture2D _texture;
 
-        private Vector2 _position;
+        private Vector2 position;
 
         public int zIndex;
 
@@ -20,7 +20,7 @@ namespace Platformer.Objects
 
         public void Render(SpriteBatch spriteBatch)
         {
-            // TODO: Drawing call here
+            
             spriteBatch.Draw(_texture, Vector2.One, Color.White);
         }
     }

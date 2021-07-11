@@ -13,8 +13,8 @@ namespace Platformer
 {
     public class MainGame : Game
     {
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
         private RenderTarget2D _renderTarget;
         private Rectangle _renderScaleRectangle;
         private BaseGameState _currentGameState;
@@ -25,12 +25,12 @@ namespace Platformer
 
         public MainGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
 
 
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
         }
@@ -38,7 +38,7 @@ namespace Platformer
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _renderTarget = new RenderTarget2D(graphics.GraphicsDevice, DESIGNED_RESOLUTION_WIDTH, DESIGNED_RESOLUTION_HEIGHT, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+            _renderTarget = new RenderTarget2D(_graphics.GraphicsDevice, DESIGNED_RESOLUTION_WIDTH, DESIGNED_RESOLUTION_HEIGHT, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
 
             _renderScaleRectangle = GetScaleRectangle();
 
@@ -73,9 +73,9 @@ namespace Platformer
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
             SwitchGameState(new SplashState());
         }
 
@@ -98,17 +98,17 @@ namespace Platformer
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            _currentGameState.Render(spriteBatch);
-            spriteBatch.End();
+            _spriteBatch.Begin();
+            _currentGameState.Render(_spriteBatch);
+            _spriteBatch.End();
 
-            graphics.GraphicsDevice.SetRenderTarget(null);
-            graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
+            _graphics.GraphicsDevice.SetRenderTarget(null);
+            _graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-            spriteBatch.Draw(_renderTarget, _renderScaleRectangle, Color.White);
-            spriteBatch.End();
-
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+            _spriteBatch.Draw(_renderTarget, _renderScaleRectangle, Color.White);
+            _spriteBatch.End();
+            
             base.Draw(gameTime);
         }
 
